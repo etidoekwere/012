@@ -1,0 +1,74 @@
+import re
+import sqlite3
+import urllib.request, urllib.parse, urllib.error
+
+conn = sqlite3.connect ('emaildb.sqllite')         #'emaildb.sqllite' is the name of the db & the code creates the connection
+cur= conn.cursor()
+
+cur.execute('DROP TABLE IF EXISTS Counts')          #drops table if it already exist
+cur.execute('CREATE TABLE Counts(email TEXT, word TEXT, count INTEGER)')
+#def myfunction():
+#myfunction():
+
+def funcHtml():
+    print('yipee htmlmwamp')
+    counts = dict()
+
+    fhand = urllib.request.urlopen(ss) #file handle
+    for line in fhand:
+        words= line.decode().split()
+        for wor in words:
+            counts[wor] = counts.get(wor, 0)+ 1
+
+
+def funcFile():
+    fhand = open(ss)
+    ds = open(ss)
+    counts = dict()
+
+    for line in fhand:
+        words = line.split()
+
+        for word in words:
+            findPosition = line.find('@')
+            if '@' in word:
+                print ('\nLikely Email of Sender: ', word)
+                fe = word
+                domain = word.split('@')
+                domain = domain[1]
+                print ('Domain of Sender: ', domain)
+                domain2 = re.findall('@([^ ]+)', fe)          #Alternative way to retrieve domain using Regular Expressions
+                print ('Alternative to Domain Extraction: ', domain2)
+
+
+        for wor in words:
+            counts[wor] = counts.get(wor, 0)+ 1
+
+    lst =list()
+    for k,v in counts.items():  #using two iteration variables
+        lst.append ((v,k))
+
+    lst = sorted(lst, reverse=True)
+    print ('\nGenerates the 10 most prominent word in the text \n')
+    for v,k in lst[:10]:
+        #cur.execute('INSERT into Counts(email, word, count) VALUES (?,?,?)', (fe,k,v))
+        print (k, v)
+
+
+    rc = ds.read()
+    print ('The text has', len(rc), 'number of characters \n')
+
+    #TO RETRIEVE
+    sqlstr = 'SELECT * FROM Counts ORDER BY count DESC LIMIT 10'
+    row = cur.fetchone()
+    for row in cur.execute(sqlstr):
+        print(str(row[0]) , str(row[1]), int(row[2]))
+
+
+ss= input(print ('Enter a file name'))
+
+
+if ss.startswith('http://'):
+    funcHtml()
+else:
+    funcFile()
