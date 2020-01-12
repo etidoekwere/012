@@ -1,8 +1,22 @@
+'''
+Dear Recruiter,
+
+This line is a snippet and aimed at showing my understanding about concepts
+
+It a rudimentary data analysis code and covers concepts such as:
+
+REGULAR EXPRESSION, DATABASE MANIPULATION, USE OF FUNCTIONS, DICTIONARIES & PARSING WEB-PAGES
+
+Thank you.
+
+'''
+
+
 import re
 import sqlite3
 import urllib.request, urllib.parse, urllib.error
 
-conn = sqlite3.connect ('emaildb.sqllite')         #'emaildb.sqllite' is the name of the db & the code creates the connection
+conn = sqlite3.connect ('LearnerDB')         #'LearnerDB' is the name of the db & the code creates the connection
 cur= conn.cursor()
 
 cur.execute('DROP TABLE IF EXISTS Counts')          #drops table if it already exist
