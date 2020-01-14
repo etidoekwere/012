@@ -4,21 +4,26 @@ Dear Recruiter/Reviewer/Student/Others,
 
 This line is a snippet and aimed at showing my understanding about concepts
 
-It shows rudimentary insights on JSON and covers concepts such as:
+It shows insights on JSON and covers concepts such as:
 
-JSON, CATCHING EXCEPTIONS, SERIALIZATION & DESERIALIZATION, DICTIONARIES & LIST MANIPULATION
+JSON, CATCHING EXCEPTIONS, SERIALIZATION & DESERIALIZATION, DICTIONARIES & LIST MANIPULATION, DEALING WITH SSL CERTIFICATE
 
 Thank you.
 
 '''
 import json
 import urllib.request, urllib.parse, urllib.error
-
+import ssl
 
 # PLAYS WITH JSON FILE ON  http://py4e-data.dr-chuck.net/comments_42.json
 ss= input(print ('Enter a file name'))
 
-fhand = urllib.request.urlopen(ss)
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+fhand = urllib.request.urlopen(ss, context=ctx)
 
 data=fhand.read().decode()
 
@@ -34,7 +39,6 @@ for i in info['comments']:
 print(shit)
 
 #ANOTHER JSON FILE TYPE
-
 data2 = '''[
     {
       "color": "black",
