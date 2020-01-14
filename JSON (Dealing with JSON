@@ -11,10 +11,31 @@ JSON, CATCHING EXCEPTIONS
 Thank you.
 
 '''
-
 import json
+import urllib.request, urllib.parse, urllib.error
 
-data = '''[
+
+# PLAYS WITH JSON FILE ON  http://py4e-data.dr-chuck.net/comments_42.json
+ss= input(print ('Enter a file name'))
+
+fhand = urllib.request.urlopen(ss)
+
+data=fhand.read().decode()
+
+info = json.loads(data)
+
+shit =0
+
+for i in info['comments']:
+
+    print(i['count'])
+    shit = shit + int(i['count'])
+
+print(shit)
+
+#ANOTHER JSON FILE TYPE
+
+data2 = '''[
     {
       "color": "black",
       "category": "hue",
@@ -70,16 +91,16 @@ data = '''[
     }
   ]'''
 
-info = json.loads(data)
+info2 = json.loads(data2)
 
-infoLength =len(info)
+infoLength =len(info2)
 
 print('User count:', infoLength)
 
 
 if infoLength > 1:
         #Program knows the format it is expecting JSON files but does not know the left of the File
-    for col in info:
+    for col in info2:
         print('Color', col['color'])
         print('Category', col['category'])
         try:                                #Since the TYPE parameters is not present in the WHITE, this catches the Exception
